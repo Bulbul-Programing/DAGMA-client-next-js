@@ -129,7 +129,7 @@ const Register = () => {
               />
             </div>
             <Button
-              className="w-full bg-[#17D893] font-bold text flex-1"
+              className="w-full bg-blue-500 text-white font-bold text flex-1"
               isLoading={loading}
               type="submit"
             >

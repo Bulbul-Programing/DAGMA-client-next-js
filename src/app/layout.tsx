@@ -40,7 +40,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers>
           <Toaster richColors />
           <div className="relative flex flex-col h-screen">
             <main className="container mx-auto max-w-7xl flex-grow">

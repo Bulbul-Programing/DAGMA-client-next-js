@@ -11,6 +11,7 @@ import TTForm from "@/src/components/Form/TTForm";
 import { useLoginUserMutation } from "@/src/redux/Users/userManagementApi";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { setUser } from "@/src/redux/features/Auth/authSlice";
+import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@heroui/modal';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,8 @@ const Login = () => {
   const [loginUser] = useLoginUserMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [modalLoading, setModalLoading] = useState(false)
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
@@ -45,6 +48,10 @@ const Login = () => {
     }
   };
 
+  const handleResetPassword: SubmitHandler<FieldValues> = async (data) => {
+
+  }
+
   return (
     <div className="relative ">
       <div className="flex justify-center bg-slate-100 items-center h-screen">
@@ -55,7 +62,7 @@ const Login = () => {
               <TTInput label="email" name="email" type="email" />
               <TTInput label="Password" name="password" type="password" />
               <Button
-                className="w-full bg-[#17D893] font-bold text flex-1"
+                className="w-full bg-blue-500 text-white font-bold text flex-1"
                 isLoading={loading}
                 type="submit"
               >
@@ -66,12 +73,13 @@ const Login = () => {
           <div>
             <p className="text-sm text-gray-600 mt-4">
               Forgot your password?{" "}
-              <button
-                className="text-blue-500 underline"
-                onClick={() => setIsModalOpen(true)}
+              <Button
+                className="text-blue-500 bg-transparent underline"
+                onPress={onOpen}
+                variant="solid"
               >
                 Reset Password
-              </button>
+              </Button>
             </p>
           </div>
           <div className="flex items-center mt-4">
@@ -88,23 +96,27 @@ const Login = () => {
         </div>
       </div>
       <div>
-        {/* {isModalOpen && (
-                    <Modal width={400} onClose={() => setIsModalOpen(false)}>
-                        <h1 className="text-lg font-medium">
-                            Enter your email for reset password
-                        </h1>
-                        <TTForm onSubmit={handleResetPassword}>
-                            <TTInput label="email" name="email" type="email" />
-                            <Button
-                                className="w-full bg-[#17D893] font-bold text flex-1"
-                                isLoading={modalLoading}
-                                type="submit"
-                            >
-                                Reset Password
-                            </Button>
-                        </TTForm>
-                    </Modal>
-                )} */}
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">Enter your email for reset password</ModalHeader>
+                <ModalBody>
+                  <TTForm onSubmit={handleResetPassword}>
+                    <TTInput label="email" name="email" type="email" />
+                    <Button
+                      className="w-full bg-blue-500 text-white font-semibold text flex-1"
+                      isLoading={modalLoading}
+                      type="submit"
+                    >
+                      Reset Password
+                    </Button>
+                  </TTForm>
+                </ModalBody>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </div>
   );
