@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Toaster } from "sonner";
 
 import { Providers } from "../lib/providers";
+import AuthProvider from "../components/AuthProvider/AuthProvider";
 
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
@@ -40,14 +41,16 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers>
-          <Toaster richColors />
-          <div className="relative flex flex-col h-screen">
-            <main className="container mx-auto max-w-7xl flex-grow">
-              {children}
-            </main>
-          </div>
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            <Toaster richColors />
+            <div className="relative flex flex-col h-screen">
+              <main className="container mx-auto max-w-7xl flex-grow">
+                {children}
+              </main>
+            </div>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

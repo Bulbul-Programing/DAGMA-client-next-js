@@ -11,7 +11,7 @@ import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 import UserStatus from "./navbarComponent/userStatus";
@@ -23,31 +23,32 @@ export const Navbar = () => {
   const [scrollValue, setScrollValue] = useState(0);
   const currentPage = usePathname();
 
-  useEffect(() => {
-    if (typeof window === "undefined") return; // Ensure it runs only on client
+  // useEffect(() => {
+  //   if (typeof window === "undefined") return; // Ensure it runs only on client
 
-    const handleScroll = () => {
-      if (scrollValue < window.scrollY) {
-        setHideNavbar(true);
-      } else {
-        setHideNavbar(false);
-      }
-      setScrollValue(window.scrollY);
-    };
+  //   const handleScroll = () => {
+  //     if (scrollValue < window.scrollY) {
+  //       setHideNavbar(true);
+  //     } else {
+  //       setHideNavbar(false);
+  //     }
+  //     setScrollValue(window.scrollY);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollValue])
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [scrollValue])
 
   // Add event listener to scroll
 
   return (
     <div
-      className={`sticky top-0 z-10 bg-blue-100 backdrop-blur transition duration-500 ${hideNavbar ? "translate-y-[-110px]" : "top-0 translate-y-0"
-        }`}
+      className={`sticky top-0 z-10 bg-blue-100 backdrop-blur transition duration-500 ${
+        hideNavbar ? "translate-y-[-110px]" : "top-0 translate-y-0"
+      }`}
     >
       <HeroUINavbar maxWidth="xl" position="sticky">
         <NavbarContent className="basis-1/5 sm:basis-full" justify="start">

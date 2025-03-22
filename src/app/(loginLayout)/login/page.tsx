@@ -5,22 +5,31 @@ import React, { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  useDisclosure,
+} from "@heroui/modal";
 
 import TTInput from "@/src/components/Form/TTInput";
 import TTForm from "@/src/components/Form/TTForm";
-import { useLoginUserMutation } from "@/src/redux/Users/userManagementApi";
+import {
+  useLoginUserMutation,
+  useResetPasswordMailSendMutation,
+} from "@/src/redux/Users/userManagementApi";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { setUser } from "@/src/redux/features/Auth/authSlice";
-import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@heroui/modal';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loginUser] = useLoginUserMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [modalLoading, setModalLoading] = useState(false)
+  const [modalLoading, setModalLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [resetPasswordMailSend] = useResetPasswordMailSendMutation();
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
@@ -49,8 +58,20 @@ const Login = () => {
   };
 
   const handleResetPassword: SubmitHandler<FieldValues> = async (data) => {
+    setModalLoading(true);
+    try {
+      const res = await resetPasswordMailSend(data.email);
 
-  }
+      if (res?.data?.success) {
+        setModalLoading(false);
+        router.push("/");
+        toast.success("Reset Password has been sent to your email");
+      }
+    } catch (err: any) {
+      setModalLoading(false);
+      toast.error(err?.message || "An error occurred");
+    }
+  };
 
   return (
     <div className="relative ">
@@ -72,11 +93,11 @@ const Login = () => {
           </div>
           <div>
             <p className="text-sm text-gray-600 mt-4">
-              Forgot your password?{" "}
+              Forgot your password?
               <Button
                 className="text-blue-500 bg-transparent underline"
-                onPress={onOpen}
                 variant="solid"
+                onPress={onOpen}
               >
                 Reset Password
               </Button>
@@ -100,12 +121,14 @@ const Login = () => {
           <ModalContent>
             {(onClose) => (
               <>
-                <ModalHeader className="flex flex-col gap-1">Enter your email for reset password</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1">
+                  Enter your email for reset password
+                </ModalHeader>
                 <ModalBody>
                   <TTForm onSubmit={handleResetPassword}>
                     <TTInput label="email" name="email" type="email" />
                     <Button
-                      className="w-full bg-blue-500 text-white font-semibold text flex-1"
+                      className="w-full bg-blue-500 mb-3 text-white font-semibold text flex-1"
                       isLoading={modalLoading}
                       type="submit"
                     >

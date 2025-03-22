@@ -152,6 +152,16 @@ const userManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["user"],
     }),
+    verifyEmail: builder.mutation({
+      query: (token) => {
+        return {
+          url: `/verifyEmail`,
+          method: "PUT",
+          body: token,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -172,4 +182,5 @@ export const {
   useGetTopFiveFollowerQuery,
   useDeleteUserMutation,
   useBlockedUserMutation,
+  useVerifyEmailMutation,
 } = userManagementApi;
