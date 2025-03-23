@@ -1,7 +1,9 @@
+import Banner from "@/src/components/Home/Banner/Banner";
+
 const HomePage = () => {
   return (
     <div>
-      <h1>Bulbul Ahammed Riad</h1>
+      <Banner />
     </div>
   );
 };
