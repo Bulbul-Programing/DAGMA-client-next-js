@@ -34,7 +34,6 @@ const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         if (userToken) {
             const decodedToken = verifyToken(userToken);
-
             if (decodedToken) {
                 setUserInfo(decodedToken);
             } else {
@@ -42,7 +41,7 @@ const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
                 router.push("/login");
             }
         } else {
-            setUserInfo({});
+            router.push("/login")
         }
     }, [userToken]);
 
@@ -64,8 +63,6 @@ const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
             setIsDrawerOpen(false);
         }
     };
-
-    console.log(submenuIndex, submenuElement);
 
     // if (isLoading) {
     //   return <p>loading</p>;
@@ -143,11 +140,11 @@ const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
                                                         href={item.path}
                                                         onClick={() => setIsDrawerOpen(false)}
                                                     >
-                                                        {/* <div
-                                                        className={`text-lg md:text-2xl lg:text-xl ${currentPage === item.path ? !isExpanded && "bg-blue-500 text-white p-3 rounded-full" : ""}`}
-                                                    >
-                                                        {item.icon}
-                                                    </div> */}
+                                                        <div
+                                                            className={`text-lg md:text-2xl lg:text-xl ${currentPage === item.path ? !isExpanded && "bg-blue-500 text-white p-3 rounded-full" : ""}`}
+                                                        >
+                                                            {item.icon}
+                                                        </div>
                                                         <p className={` ${isExpanded ? "text-base" : "text-[0px] mt-0"}`}>
                                                             {item.element}
                                                         </p>

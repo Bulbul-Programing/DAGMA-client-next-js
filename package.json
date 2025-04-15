@@ -20,7 +20,7 @@
   "@heroui/modal": "^2.2.8",
   "@heroui/navbar": "2.2.8",
   "@heroui/select": "^2.4.10",
-  "@heroui/skeleton": "^2.2.6",
+  "@heroui/skeleton": "^2.2.10",
   "@heroui/snippet": "2.2.10",
   "@heroui/switch": "2.2.8",
   "@heroui/system": "2.4.6",
@@ -46,6 +46,7 @@
   "react-type-animation": "^3.2.0",
   "redux-persist": "^6.0.0",
   "sonner": "^1.7.4",
+  "sweetalert2": "^11.18.0",
   "zod": "^3.24.1"
  },
  "devDependencies": {

@@ -10,6 +10,7 @@ import { MdAppRegistration } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GiTeacher } from "react-icons/gi";
 import { MdOutlineRateReview } from "react-icons/md";
+import { HiOutlineAcademicCap } from "react-icons/hi2";
 
 export const dashboardNavItem = [
     {
@@ -23,6 +24,17 @@ export const dashboardNavItem = [
         icon: <FaRegUser />,
     },
     {
+        element: "Academy",
+        icon: <HiOutlineAcademicCap />,
+        subMenu: [
+            {
+                path: "/admin/notice",
+                element: "Notice",
+                icon: <PiNewspaperClipping />,
+            },
+        ]
+    },
+    {
         element: "Users",
         icon: <FiUsers />,
         subMenu: [
@@ -30,11 +42,6 @@ export const dashboardNavItem = [
                 path: "/admin/banner",
                 element: "Banner",
                 icon: <RiCarouselView />,
-            },
-            {
-                path: "/admin/notice",
-                element: "Notice",
-                icon: <PiNewspaperClipping />,
             },
             {
                 path: "/admin/course",

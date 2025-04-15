@@ -16,22 +16,27 @@ export default function TTSelect({
   label,
   variant = "bordered",
   disabled,
+  defaultValue = "select option",
+  required = true,
 }: IProps) {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+  const defaultKey = options.find((opt) => opt.label === defaultValue)?.key;
 
   return (
     <Select
       {...register(name)}
-      className="min-w-full sm:min-w-[225px]"
+      className="min-w-full my-1 "
+      defaultSelectedKeys={defaultKey ? [defaultKey] : undefined}
       isDisabled={disabled}
       label={label}
+      required={required}
       variant={variant}
     >
       {options.map((option) => (
-        <SelectItem key={option.key}>{option.label}</SelectItem>
+        <SelectItem key={option.label}>{option.label}</SelectItem>
       ))}
     </Select>
   );

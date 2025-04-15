@@ -8,7 +8,7 @@ interface IProps extends IInput {
   type?: string;
 }
 
-export default function FXTextarea({
+export default function TTTextArea({
   name,
   label,
   variant = "bordered",
@@ -19,13 +19,13 @@ export default function FXTextarea({
     formState: { errors },
   } = useFormContext();
 
-  const currentValue = useWatch({ name });
+  const currentValue = useWatch({ name, defaultValue });
 
   return (
     <Textarea
       {...register(name)}
       className="my-3"
-      defaultValue="something"
+      defaultValue={defaultValue}
       label={label}
       minRows={2}
       value={currentValue || ""}
