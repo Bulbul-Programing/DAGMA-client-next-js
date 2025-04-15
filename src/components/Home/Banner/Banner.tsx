@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { TypeAnimation } from 'react-type-animation'
 const Banner = () => {
     return (
-        <div className=" w-full bg-cover bg-center bg-no-repeat mb-8 md:mb-16 bg-[url('https://i.ibb.co/VVgHWbb/New-Project-8.jpg')] lg:mb-16">
+        <div className=" w-full bg-fixed transition-all bg-cover bg-center bg-no-repeat mb-8 md:mb-16 bg-[url('https://i.ibb.co/VVgHWbb/New-Project-8.jpg')] lg:mb-16">
             {/* <img className='z-0 lg:h-[600px] w-full' src="https://i.ibb.co/VVgHWbb/New-Project-8.jpg" alt="" /> */}
             <div className=" text-white w-full lg:pb-10 h-full bg-slate-700 bg-opacity-65">
                 <motion.div
