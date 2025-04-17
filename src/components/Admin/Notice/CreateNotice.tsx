@@ -39,7 +39,7 @@ const CreateNotice = () => {
             const res = (await createNotice(data)) as any;
 
             if (res?.data?.success) {
-                toast.success("Notice create successfully");
+                toast.success(res?.data?.massage || "Notice create successfully");
                 setNoticePhoto([]);
                 setNoticePhotPreview([]);
                 onClose()

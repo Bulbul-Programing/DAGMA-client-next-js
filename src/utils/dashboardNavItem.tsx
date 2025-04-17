@@ -32,6 +32,11 @@ export const dashboardNavItem = [
                 element: "Notice",
                 icon: <PiNewspaperClipping />,
             },
+            {
+                path: "/admin/teacher",
+                element: "Teachers",
+                icon: <LiaChalkboardTeacherSolid />,
+            },
         ]
     },
     {

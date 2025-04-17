@@ -130,7 +130,7 @@ const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
                                                 <IoIosArrowDown className={` ${isExpanded ? "text-base block " : "text-[0px] mt-0 hidden"}`} />
                                             </button>
                                         </div>
-                                        <div className={`${(submenuIndex === index && submenuElement === item.element) ? "block" : "hidden"} border-l-2 border-black/30`}>
+                                        <div className={`${(submenuIndex === index && submenuElement === item.element) ? "block" : "hidden"} ${isExpanded ? "border-l-2 border-black/30" : ""} `}>
                                             {
                                                 item.subMenu.map((item, i) => (
                                                     <Link
@@ -141,7 +141,7 @@ const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
                                                         onClick={() => setIsDrawerOpen(false)}
                                                     >
                                                         <div
-                                                            className={`text-lg md:text-2xl lg:text-xl ${currentPage === item.path ? !isExpanded && "bg-blue-500 text-white p-3 rounded-full" : ""}`}
+                                                            className={`text-lg md:text-2xl lg:text-xl ${currentPage === item.path ? !isExpanded && "bg-blue-500 text-white p-2 rounded-full" : ""}`}
                                                         >
                                                             {item.icon}
                                                         </div>

@@ -14,6 +14,7 @@ import { Button } from "@heroui/button";
 import { ChangeEvent, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { hostImages } from "@/src/utils/ImageUpload";
+import NoticeTableSkeleton from "@/src/Skeleton/NoticeTableSkeleton";
 
 const AllNoticeAdmin = () => {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -142,6 +143,10 @@ const AllNoticeAdmin = () => {
             reader.readAsDataURL(file);
         }
     };
+
+    if (isLoading) {
+        return <NoticeTableSkeleton />
+    }
 
     return (
         <div>

@@ -2,7 +2,6 @@ import React from 'react';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 const Path = ({ paths }: { paths: string[] }) => {
-    console.log(paths.length);
     return (
         <div className="flex items-center gap-x-2 bg-[#F5F9FA] p-4 my-3">
             {
