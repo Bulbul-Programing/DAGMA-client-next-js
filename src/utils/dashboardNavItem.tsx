@@ -11,6 +11,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GiTeacher } from "react-icons/gi";
 import { MdOutlineRateReview } from "react-icons/md";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
+import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 
 export const dashboardNavItem = [
     {
@@ -36,6 +37,11 @@ export const dashboardNavItem = [
                 path: "/admin/teacher",
                 element: "Teachers",
                 icon: <LiaChalkboardTeacherSolid />,
+            },
+            {
+                path: "/admin/gallery",
+                element: "Gallery",
+                icon: <MdOutlinePhotoSizeSelectActual />,
             },
         ]
     },

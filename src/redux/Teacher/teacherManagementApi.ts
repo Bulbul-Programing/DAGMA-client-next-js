@@ -30,7 +30,7 @@ const teacherManagementApi = baseApi.injectEndpoints({
             },
             providesTags: ["teacher"],
         }),
-        updateTeacherStatus: builder.mutation({
+        updateTeacher: builder.mutation({
             query: (payload) => {
                 return {
                     url: `/teacher/update/${payload.id}`,
@@ -65,7 +65,7 @@ export const {
     useCreateTeacherMutation,
     useGetAllTeacherAdminQuery,
     useGetAllTeacherUserQuery,
-    useUpdateTeacherStatusMutation,
+    useUpdateTeacherMutation,
     useDeleteTeacherMutation,
     useCountTeacherQuery
 } = teacherManagementApi;

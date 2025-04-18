@@ -14,7 +14,7 @@ import { Button } from "@heroui/button";
 import { ChangeEvent, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { hostImages } from "@/src/utils/ImageUpload";
-import NoticeTableSkeleton from "@/src/Skeleton/NoticeTableSkeleton";
+import NoticeTableSkeleton from "@/src/Skeleton/Admin/NoticeTableSkeleton";
 
 const AllNoticeAdmin = () => {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -111,7 +111,7 @@ const AllNoticeAdmin = () => {
                     const res = (await deleteNotice(id)) as any;
 
                     if (res?.data?.success) {
-                        toast.success(res.data.massage);
+                        toast.success(res?.data?.massage);
                     }
                     if (res?.error?.data?.message) {
                         toast.error(res?.error?.data?.message || "An error occurred");

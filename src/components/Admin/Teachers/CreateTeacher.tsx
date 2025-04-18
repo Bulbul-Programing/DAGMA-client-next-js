@@ -89,9 +89,9 @@ const CreateTeacher = () => {
                                                         <Image
                                                             key={profile}
                                                             alt="profileImage"
+                                                            src={profile}
                                                             className="rounded-full object-cover h-[80px] w-[80px] border-2"
                                                             height={80}
-                                                            src={profile}
                                                             width={80}
                                                         />
                                                     ))}
