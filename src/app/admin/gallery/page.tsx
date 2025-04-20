@@ -1,9 +1,8 @@
-import AllNoticeAdmin from '@/src/components/Admin/Notice/AllNoticeAdmin';
-import CountNotice from '@/src/components/Admin/Notice/CountNotice';
-import CreateNotice from '@/src/components/Admin/Notice/CreateNotice';
+import AllGalleryAdmin from '@/src/components/Admin/Gallery/AllGalleryAdmin';
+import GalleryCount from '@/src/components/Admin/Gallery/GalleryCount';
+import GalleryCreate from '@/src/components/Admin/Gallery/GalleryCreate';
 import Path from '@/src/components/Path';
 import React from 'react';
-import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 const path = [
     {
@@ -15,8 +14,8 @@ const path = [
         label: 'Admin'
     },
     {
-        path: 'admin/notice',
-        label: 'Notice'
+        path: 'admin/gallary',
+        label: 'Gallery'
     },
 ]
 
@@ -25,10 +24,10 @@ const page = () => {
         <div>
             <Path paths={path} />
             <div className='flex justify-between items-center'>
-                <CountNotice />
-                <CreateNotice />
+                <GalleryCount />
+                <GalleryCreate />
             </div>
-            <AllNoticeAdmin />
+            <AllGalleryAdmin />
         </div>
     );
 };
