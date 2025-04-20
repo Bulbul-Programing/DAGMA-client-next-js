@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetAllGalleryAdminQuery, useUpdateGalleryMutation } from "@/src/redux/Gallery/galleryManagementApi";
+import { useDeleteGalleryMutation, useGetAllGalleryAdminQuery, useUpdateGalleryMutation } from "@/src/redux/Gallery/galleryManagementApi";
 import { TGallery } from "@/src/types/TGallery";
 import Image from "next/image";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -24,6 +24,9 @@ import { RxCross2 } from "react-icons/rx";
 import { hostImages } from "@/src/utils/ImageUpload";
 import { toast } from "sonner";
 import dynamic from "next/dynamic";
+import Swal from "sweetalert2";
+import GallerySkeleton from "@/src/Skeleton/Admin/GallerySkeleton";
+import NoDataFound from "../../NoDataFound";
 
 const LightGallery = dynamic(() => import('lightgallery/react'), {
     ssr: false
@@ -33,14 +36,18 @@ const AllGalleryAdmin = () => {
     // retrirve Data
     const { data: gallery, isLoading } = useGetAllGalleryAdminQuery(undefined)
     const [updateGallery] = useUpdateGalleryMutation()
+    const [deleteGallery] = useDeleteGalleryMutation()
 
     // State management
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [galleryId, setGalleryId] = useState('')
+    const [deleteGalleryId, setDeleteGalleryId] = useState('')
     const lightGalleryRef = useRef<any>(null)
     const [galleryPhoto, setGalleryPhoto] = useState<GalleryItem[]>([]);
     const [previousGalleryPhoto, setPreviousGalleryPhoto] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
+    const [DLoading, setDLoading] = useState(false)
+    const [ELoading, setELoading] = useState(false)
     const [lightGalleryPhoto, setLightGalleryPhoto] = useState<string[]>([])
 
     const onEdit = (id: string) => {
@@ -51,7 +58,37 @@ const AllGalleryAdmin = () => {
     }
 
     const onDelete = (id: string) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result: { isConfirmed: boolean }) => {
+            if (result.isConfirmed) {
+                try {
+                    setDeleteGalleryId(id)
+                    setDLoading(true)
+                    const res = (await deleteGallery(id)) as any;
 
+                    if (res?.data?.success) {
+                        toast.success(res?.data?.massage);
+                        setDLoading(false)
+                        setDeleteGalleryId('')
+                    }
+                    if (res?.error?.data?.message) {
+                        toast.error(res?.error?.data?.message || "An error occurred");
+                        setDLoading(false)
+                        setDeleteGalleryId('')
+                    }
+                } catch (err: any) {
+                    toast.error("An error occurred while updating user data.");
+                    setDLoading(false)
+                }
+            }
+        });
     }
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -65,15 +102,27 @@ const AllGalleryAdmin = () => {
 
         if (galleryPhoto.length > 0) {
             setLoading(true);
+            setELoading(true)
             const files = galleryPhoto.map((file) => file.file)
             const uploadPhoto = await hostImages(files);
-            data.photos = [...uploadPhoto];
+            data.photos = uploadPhoto
         }
-
         if (thisGallery.photos.length !== previousGalleryPhoto.length) {
-            data.photos = [...previousGalleryPhoto]
+            if (data.photos) {
+                data.photos = [...data.photos, ...previousGalleryPhoto]
+            }
+            else {
+                data.photos = [...previousGalleryPhoto]
+            }
         }
-
+        else {
+            if (data.photos) {
+                data.photos = [...data.photos, ...previousGalleryPhoto]
+            }
+        }
+        if (data?.photos?.length < 1) {
+            return toast.error('Please upload a photo.')
+        }
         if (Object.keys(data).length < 1) {
             return toast.error('Please minimum one field update.')
         }
@@ -84,12 +133,14 @@ const AllGalleryAdmin = () => {
                 updateInfo: data
             }
             setLoading(true);
+            setELoading(true)
             const res = (await updateGallery(payload)) as any;
 
             if (res?.data?.success) {
                 toast.success(res?.data?.massage || "Gallery update successfully");
                 setGalleryPhoto([]);
                 setLoading(false);
+                setELoading(false)
                 onClose()
             } else if (res?.error?.data?.errorSources) {
                 res?.error?.data?.errorSources.map(
@@ -97,11 +148,13 @@ const AllGalleryAdmin = () => {
                         toast.error(error?.message || "An error occurred"),
                 );
                 setLoading(false)
+                setELoading(false)
             }
         } catch (err: any) {
             const errorMessage = err?.response?.data?.message || "An unexpected error occurred";
             toast.error(errorMessage);
             setLoading(false);
+            setELoading(false)
         }
     }
 
@@ -140,6 +193,14 @@ const AllGalleryAdmin = () => {
         }, 0);
     };
 
+    if (isLoading) {
+        return <GallerySkeleton />
+    }
+
+    if (!gallery?.data?.length) {
+        return <NoDataFound />
+    }
+
     return (
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
@@ -162,20 +223,21 @@ const AllGalleryAdmin = () => {
                             <Image
                                 src={gallery.photos[0]}
                                 alt={`Gallery Image ${gallery.galleryName}`}
-                                layout="fill"
-                                objectFit="cover"
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                style={{ objectFit: 'cover' }}
                                 className="rounded-md"
                             />
                         </button>
 
                         {/* Action buttons */}
                         <div className="flex justify-end gap-3 border-t pt-3">
-                            <button onClick={() => onEdit(gallery._id)} className="flex items-center gap-1 text-blue-600 text-sm">
+                            <Button isLoading={ELoading && galleryId === gallery._id} onPress={() => onEdit(gallery._id)} className="flex bg-transparent items-center gap-1 text-blue-600 text-sm">
                                 <FaEdit /> Edit
-                            </button>
-                            <button onClick={() => onDelete(gallery._id)} className="flex items-center gap-1 text-red-600 text-sm">
+                            </Button>
+                            <Button isLoading={DLoading && deleteGalleryId === gallery._id} onPress={() => onDelete(gallery._id)} className="flex bg-transparent items-center gap-1 text-red-600 text-sm">
                                 <FaTrash /> Delete
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 ))}
@@ -213,9 +275,9 @@ const AllGalleryAdmin = () => {
                                                                     <Image
                                                                         alt="profileImage"
                                                                         className="rounded-md object-cover h-[80px] w-[80px] border-2 p-1"
-                                                                        height={140}
+                                                                        height={80}
                                                                         src={photo}
-                                                                        width={250}
+                                                                        width={80}
                                                                     />
                                                                     <RxCross2 onClick={() => handleRemovePhoto(photo, 'previous')} size={20} className=' hover:cursor-pointer absolute group-hover:block hidden z-50 -top-2 -right-2' />
                                                                 </div>
@@ -225,9 +287,9 @@ const AllGalleryAdmin = () => {
                                                                     <Image
                                                                         alt="profileImage"
                                                                         className="rounded-md object-cover h-[80px] w-[80px] border-2 p-1"
-                                                                        height={140}
+                                                                        height={80}
                                                                         src={profile.url}
-                                                                        width={250}
+                                                                        width={80}
                                                                     />
                                                                     <RxCross2 onClick={() => handleRemovePhoto(profile.url, 'now')} size={20} className=' hover:cursor-pointer absolute group-hover:block hidden z-50 -top-2 -right-2' />
                                                                 </div>
