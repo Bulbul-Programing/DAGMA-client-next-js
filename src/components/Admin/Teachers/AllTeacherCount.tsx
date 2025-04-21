@@ -11,7 +11,7 @@ const AllTeacherCount = () => {
     }
     return (
         <h1 className="bg-blue-500 text-base p-2 rounded-lg inline-block text-white">
-            Total notice : {data?.data}
+            Total Teacher : {data?.data}
         </h1>
     );
 };

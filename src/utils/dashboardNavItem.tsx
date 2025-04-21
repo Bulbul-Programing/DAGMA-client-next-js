@@ -12,6 +12,7 @@ import { GiTeacher } from "react-icons/gi";
 import { MdOutlineRateReview } from "react-icons/md";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+import { PiUsersThree } from "react-icons/pi";
 
 export const dashboardNavItem = [
     {
@@ -23,6 +24,11 @@ export const dashboardNavItem = [
         path: "/admin/profile",
         element: "Profile",
         icon: <FaRegUser />,
+    },
+    {
+        path: "/admin/users",
+        element: "Users",
+        icon: <PiUsersThree />,
     },
     {
         element: "Academy",

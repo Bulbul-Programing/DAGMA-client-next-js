@@ -26,10 +26,12 @@ const GalleryCreate = () => {
     const [loading, setLoading] = useState(false)
     const [galleryPhoto, setGalleryPhoto] = useState<GalleryItem[]>([]);
 
+    // remove uploaded photo
     const handleRemovePhoto = (imageLink: string) => {
         setGalleryPhoto((prev) => prev.filter((img) => img.url !== imageLink))
     }
 
+    // create new gallery
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         if (galleryPhoto.length < 1) {
             return toast.error("Please select a gallery photos");
@@ -68,6 +70,7 @@ const GalleryCreate = () => {
         }
     }
 
+    // handle uploaded photo
     const handlePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files
 

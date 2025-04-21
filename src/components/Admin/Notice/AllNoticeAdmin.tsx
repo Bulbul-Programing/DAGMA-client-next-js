@@ -15,18 +15,22 @@ import { ChangeEvent, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { hostImages } from "@/src/utils/ImageUpload";
 import NoticeTableSkeleton from "@/src/Skeleton/Admin/NoticeTableSkeleton";
+import NoDataFound from "../../NoDataFound";
 
 const AllNoticeAdmin = () => {
+    // Data retrieve and update api section
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const { data: notices, isLoading } = useGetAllNoticesQuery(undefined)
     const [updateNotice] = useUpdateNoticeStatusMutation();
     const [deleteNotice] = useDeleteNoticeMutation();
 
+    // state management section
     const [noticePhotoPreview, setNoticePhotPreview] = useState<string[] | []>([]);
     const [noticePhoto, setNoticePhoto] = useState<File[] | []>([]);
     const [loading, setLoading] = useState(false)
     const [updateNoticeId, setUpdateNoticeId] = useState('')
 
+    // update notice
     const handleUpdateNotice: SubmitHandler<FieldValues> = async (data) => {
         const notice = notices?.data?.filter((notice: TNotice) => notice._id === updateNoticeId)[0]
 
@@ -76,6 +80,7 @@ const AllNoticeAdmin = () => {
 
     }
 
+    // update notice status section
     const updateNoticeStatus = async (id: string, blockStatus: boolean) => {
         const updateData = {
             id,
@@ -96,6 +101,7 @@ const AllNoticeAdmin = () => {
         }
     };
 
+    // delete notice
     const handleDeleteNotice = async (id: string) => {
         Swal.fire({
             title: "Are you sure?",
@@ -128,6 +134,7 @@ const AllNoticeAdmin = () => {
         onOpen()
     }
 
+    // handle update photo
     const handlePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0];
 
@@ -147,6 +154,10 @@ const AllNoticeAdmin = () => {
     if (isLoading) {
         return <NoticeTableSkeleton />
     }
+
+    if (!notices?.data?.length) {
+            return <NoDataFound />
+        }
 
     return (
         <div>

@@ -12,12 +12,16 @@ import TTTextArea from '../../Form/TTTextArea';
 import { useCreateTeacherMutation } from '@/src/redux/Teacher/teacherManagementApi';
 
 const CreateTeacher = () => {
+    // API Section
+    const [createTeacher] = useCreateTeacherMutation();
+    
+    // State management photo
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [teacherPhotoPreview, setTeacherPhotPreview] = useState<string[] | []>([]);
     const [teacherPhoto, setTeacherPhoto] = useState<File[] | []>([]);
-    const [createTeacher] = useCreateTeacherMutation();
     const [loading, setLoading] = useState<boolean>(false);
 
+    // handle uploaded photo
     const handlePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0];
 
@@ -34,6 +38,7 @@ const CreateTeacher = () => {
         }
     };
 
+    // Create new teacher
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         if (teacherPhoto.length < 1) {
             return toast.error("Please select a profile picture");

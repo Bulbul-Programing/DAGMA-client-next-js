@@ -57,6 +57,7 @@ const AllGalleryAdmin = () => {
         onOpen()
     }
 
+    // delete Gallery
     const onDelete = (id: string) => {
         Swal.fire({
             title: "Are you sure?",
@@ -91,6 +92,7 @@ const AllGalleryAdmin = () => {
         });
     }
 
+    // crete a new Gallery
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         const thisGallery = gallery?.data?.filter((gallery: TGallery) => gallery._id === galleryId)[0]
         if (thisGallery.galleryName === data.galleryName) {
@@ -158,6 +160,7 @@ const AllGalleryAdmin = () => {
         }
     }
 
+    // handle upload photo
     const handlePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files
 
@@ -175,6 +178,7 @@ const AllGalleryAdmin = () => {
         }
     };
 
+    // handle uploaded photo
     const handleRemovePhoto = (photo: string, state: string) => {
         if (state === 'previous') {
             setPreviousGalleryPhoto((prev) => prev.filter(img => img !== photo))
@@ -184,6 +188,7 @@ const AllGalleryAdmin = () => {
         }
     }
 
+    // open light box gallery
     const openLightbox = (photos: string[]) => {
         setLightGalleryPhoto(photos);
 

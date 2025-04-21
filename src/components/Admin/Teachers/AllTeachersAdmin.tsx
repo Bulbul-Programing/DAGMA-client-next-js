@@ -13,6 +13,7 @@ import TTInput from "../../Form/TTInput";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { hostImages } from "@/src/utils/ImageUpload";
 import TeacherTableSkeleton from "@/src/Skeleton/Admin/TeacherTableSkeleton";
+import NoDataFound from "../../NoDataFound";
 
 const AllTeachersAdmin = () => {
     // Data retrieve and update api section
@@ -177,8 +178,12 @@ const AllTeachersAdmin = () => {
         }
     };
 
-    if(isLoading){
+    if (isLoading) {
         return <TeacherTableSkeleton />
+    }
+
+    if (!Teachers?.data?.length) {
+        return <NoDataFound />
     }
 
     return (
