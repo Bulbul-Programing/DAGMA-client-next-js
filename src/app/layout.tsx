@@ -8,6 +8,12 @@ import AuthProvider from "../components/AuthProvider/AuthProvider";
 
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
+import { Poppins } from 'next/font/google'
+
+const PoppinsFont = Poppins({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800', '900']
+})
 
 export const metadata: Metadata = {
   title: {
@@ -44,7 +50,7 @@ export default function RootLayout({
         <AuthProvider>
           <Providers>
             <Toaster richColors />
-            <div className="relative flex flex-col h-screen">
+            <div className={`relative flex flex-col h-screen ${PoppinsFont.className}`}>
               <main className="container mx-auto max-w-7xl flex-grow">
                 {children}
               </main>
