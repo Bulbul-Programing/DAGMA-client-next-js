@@ -22,10 +22,22 @@ const noticeManagementApi = baseApi.injectEndpoints({
             providesTags: ["notice"],
         }),
         getAllNoticesUser: builder.query({
-            query: () => {
+            query: (arg) => {
+                const param = new URLSearchParams()
+
+                if (arg) {
+                    const key = Object.keys(arg)
+                    const value = Object.values(arg)
+
+                    for (let index = 0; index < key.length; index++) {
+                        param.append(key[index], value[index] as string);
+                    }
+                }
+
                 return {
                     url: "/notice/user",
                     method: "GET",
+                    params: param
                 };
             },
             providesTags: ["notice"],

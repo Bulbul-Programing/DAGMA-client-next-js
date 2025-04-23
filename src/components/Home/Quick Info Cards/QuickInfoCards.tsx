@@ -35,7 +35,7 @@ const QuickInfoCards = () => {
     }
 
     return (
-        <div id='quickInfoDiv' className="w-full h-[300px] bg-fixed bg-cover bg-center bg-no-repeat mb-8 md:mb-16 lg:mb-16 transition-all duration-500 ease-in-out bg-[url('https://i.ibb.co/VVgHWbb/New-Project-8.jpg')]">
+        <div id='quickInfoDiv' className="w-full h-[300px] bg-fixed bg-cover bg-center bg-no-repeat mb-5 transition-all duration-500 ease-in-out bg-[url('https://i.ibb.co/VVgHWbb/New-Project-8.jpg')]">
             <div className=" px-3 grid gap-x-2 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-between items-center text-white w-full h-full bg-slate-700 bg-opacity-65">
                 <div className="flex justify-center items-center gap-2">
                     <Image className="bg-white rounded-md" height={80} width={80} alt="" priority src="https://res.cloudinary.com/durkh1c9d/image/upload/v1745228988/building_imxak2.gif" />

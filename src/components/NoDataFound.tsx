@@ -6,7 +6,7 @@ const NoDataFound = () => {
         <div className="w-full my-5 flex flex-col items-center justify-center bg-white rounded-3xl shadow-lg border border-gray-200 p-6">
             <Image
                 alt="No data"
-                className=" object-contain"
+                className=" object-cover"
                 height={200}
                 src="https://res.cloudinary.com/dbcedo67j/image/upload/v1743957153/47718913_9170826_zigwv0.jpg"
                 width={300}

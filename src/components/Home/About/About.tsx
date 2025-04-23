@@ -13,7 +13,7 @@ const About = () => {
                     <Image className='border' height={120} width={120} alt='' src='https://res.cloudinary.com/depy0i4bl/image/upload/v1738933488/New_Project_plpgem.png' />
                 </div>
                 <div className='space-y-4'>
-                    <Image className='rounded-full object-contain p-1 border-3 border-blue-300 border-dashed' height={300} width={220} alt='' src='https://res.cloudinary.com/durkh1c9d/image/upload/v1745322354/02_fcxh0z.jpg' />
+                    <Image className='rounded-full object-cover p-1 border-3 border-blue-300 border-dashed' height={300} width={220} alt='' src='https://res.cloudinary.com/durkh1c9d/image/upload/v1745322354/02_fcxh0z.jpg' />
                     <Image className='rounded-[60px] rounded-tl-none' height={300} width={220} alt='' src='https://res.cloudinary.com/durkh1c9d/image/upload/v1745322317/03_s8blmy.jpg' />
                 </div>
             </div>
