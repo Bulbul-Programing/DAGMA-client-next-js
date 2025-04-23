@@ -25,7 +25,7 @@ const Notice = () => {
     return (
         <div className="bg-slate-200 my-5 mx-5 md:mx-10 lg:mx-10 rounded-lg flex items-center ">
 
-            <Button className="btn bg-blue-400 text-white font-bold" onPress={onOpen}>All Notice</Button>
+            <Button className="btn bg-blue-400 hover:bg-[#FB9220] text-white font-bold" onPress={onOpen}>All Notice</Button>
             {/* <button className="btn bg-blue-400 hover:text-slate-600 text-white font-bold" onClick={() => document.getElementById('my_modal_5').showModal()}>All Notice</button> */}
 
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

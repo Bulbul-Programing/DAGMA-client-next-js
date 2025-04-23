@@ -45,7 +45,7 @@ const Banner = () => {
                     transition={{ duration: 1 }}
                 >
                     <div className='flex justify-center'>
-                        <Link href='/academy'><Button className='btn mt-7 md:mt-0 lg:mt-0 bg-blue-500 border-none text-white font-bold hover:bg-blue-400'>Explore Academy</Button></Link>
+                        <Link href='/academy'><Button className='btn mt-7 md:mt-0 lg:mt-0 hover:bg-[#FB9220] bg-blue-500 border-none text-white font-bold '>Explore Academy</Button></Link>
                     </div>
                 </motion.div>
             </div>
